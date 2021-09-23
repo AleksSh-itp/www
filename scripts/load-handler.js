@@ -43,8 +43,7 @@ function loadPage(link) {
             let currentLink = findLinkTag(currentPageLink)
             let currentChapter = findChapterForLink(currentLink);
 
-            if (!currentChapter.isEqualNode(prevChapter))
-            {
+            if (!currentChapter.isEqualNode(prevChapter) {
                 let prevCollapse = prevChapter.getElementsByClassName("bi")[0];
                 let currentCollapse = currentChapter.getElementsByClassName("bi")[0];
 
@@ -57,19 +56,15 @@ function loadPage(link) {
         request.send();
 }
 
-function toggle(collapse, state)
-{
-    if (collapse)
-    {
-        if (collapse.getAttribute("aria-expanded") == state)
-        {
+function toggle(collapse, state) {
+    if (collapse) {
+        if (collapse.getAttribute("aria-expanded") == state) {
             collapse.click();
         }
     }
 }
 
-function flipPage(direction)
-{
+function flipPage(direction) {
     let link = findLinkTag(currentPageLink);
     let index = links.indexOf(link);
     let newPageLink = links[index + direction];
@@ -81,23 +76,28 @@ function getPagesLinks() {
     let allLinks = document.getElementById('navigation').getElementsByTagName('a');
     let pagesLinks = [];
 
-    for (let i = 0; i < allLinks.length; i++)
-        if (allLinks[i].href.includes('content/'))
+    for (let i = 0; i < allLinks.length; i++) {
+         if (allLinks[i].href.includes('content/')) {
             pagesLinks.push(allLinks[i]);
-
+         }
+    }
+       
     return pagesLinks;
 }
 
 function changeButtonState() {
-    if (currentPageLink == links[0].href)
+    if (currentPageLink == links[0].href) {
         prevButton.disabled = true;
-    else
+        
+    } else {
         prevButton.disabled = false;
+    }
 
-    if (currentPageLink == links[links.length - 1].href)
+    if (currentPageLink == links[links.length - 1].href) {
         nextButton.disabled = true;
-    else
+    } else {
         nextButton.disabled = false;
+    }
 }
 
 function setActionMark(link) {
@@ -112,8 +112,9 @@ function removeActionMark(link) {
 
 function findLinkTag(link) {
     for (let i = 0; i < links.length; i++) {
-        if (links[i].href == link)
+        if (links[i].href == link) {
             return links[i];
+        }
     }
 }
 
@@ -121,8 +122,7 @@ function markChapter(link) {
     let linkTag = findLinkTag(link);
     let chapter = findChapterForLink(linkTag);
 
-    if (chapter.childElementCount > 1)
-    {
+    if (chapter.childElementCount > 1) {
         let state = chapter.getElementsByClassName("bi")[0].getAttribute("aria-expanded");        
         makeAction(state, chapter);
     }
